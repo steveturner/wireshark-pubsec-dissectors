@@ -1,0 +1,10 @@
+# RTMX Configuration
+# See https://github.com/iotactical/rtmx for documentation
+
+rtmx:
+  database: docs/rtm_database.csv
+  requirements_dir: docs/requirements
+  schema: core
+  pytest:
+    marker_prefix: "req"
+    register_markers: true

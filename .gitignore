@@ -1,0 +1,81 @@
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# pytest and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Lua artifacts
+*.luac
+.luarocks/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Large binary files (except PCAPs for testing)
+*.exe
+*.dll
+*.bin
+*.dmg
+*.iso
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+
+# Keep PCAP files for protocol testing
+!*.pcap
+!*.pcapng
+
+# Build outputs
+*.o
+*.a
+*.lib
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

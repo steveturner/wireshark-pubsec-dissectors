@@ -1,30 +1,52 @@
-Wireshark TAK Plugin
-====================
+# Wireshark TAK Plugin
 
-Dissect TAK / Cursor-on-Target messages within Wireshark.
+Dissect TAK, Cursor-on-Target, and OMNI protocol messages in Wireshark.
 
-Getting Started
----------------
+## Supported Protocols
 
-  1. Copy [`tak.lua`](tak.lua) into your Wireshark [plugins directory][1].
-  2. Download the [TAK Protobuf files][2] to a directory in the Protobuf plugin search path.
-  3. Start or reload Wireshark to enable the plugin.
+| Protocol | Description |
+|----------|-------------|
+| TAK XML CoT | Plain XML Cursor-on-Target messages |
+| TAK Stream | Binary protobuf (version 1) |
+| TAK Mesh | Binary protobuf (version 2+) |
+| OMNI | Open Mission Network Interface |
 
-[1]: https://www.wireshark.org/docs/wsug_html_chunked/ChPluginFolders.html
-[2]: https://github.com/deptofdefense/AndroidTacticalAssaultKit-CIV/tree/main/commoncommo/core/impl/protobuf
+All protobuf parsing is native Lua - no external dependencies.
 
-Notes
------
+## Installation
 
-  - Package the plugin within a ZIP archive for ease of installation.
-  - Use GitHub actions to build a ZIP archive of the TAK protobuf files.
-  - Build a native dissector and contribute it to Wireshark.
+```bash
+./install.sh                # macOS/Linux
+powershell -File install.ps1  # Windows
+```
 
-Contributing
-------------
+Or manually copy `tak.lua` and `omni.lua` to your [Wireshark plugins directory](https://www.wireshark.org/docs/wsug_html_chunked/ChPluginFolders.html).
 
-  1. Clone this repository.
-  2. Create your branch: `git checkout -b feature/branch`
-  3. Commit your changes: `git commit -am "I am developer."`
-  4. Push your changes: `git push origin feature/branch`
-  5. Create a PR of your branch against the `master` branch.
+## Default Ports
+
+| Port | Protocol |
+|------|----------|
+| 4242, 6969, 7171, 8087, 17012 | TAK |
+| 8089 | OMNI |
+
+Configure via Edit → Preferences → Protocols → TAK/OMNI.
+
+## Display Filters
+
+```
+tak                           # All TAK/OMNI traffic
+tak.protocol == "mesh"        # Mesh protocol
+tak.cot.type contains "a-f"   # Friendly units
+tak.point.lat > 38.0          # Filter by latitude
+omni.event_type == "Track"    # OMNI track events
+```
+
+## TLS Decryption
+
+TAK traffic is often TLS-encrypted. See [Wireshark's TLS documentation](https://wiki.wireshark.org/TLS) for decryption methods.
+
+## Contributing
+
+1. Fork and clone
+2. Create feature branch
+3. Submit PR against `main`

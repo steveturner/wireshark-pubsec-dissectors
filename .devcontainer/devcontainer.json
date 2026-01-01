@@ -1,0 +1,36 @@
+{
+    "name": "TAK Wireshark Plugin Development",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.11"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "sumneko.lua",
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ],
+            "settings": {
+                "Lua.runtime.version": "Lua 5.2",
+                "Lua.workspace.library": [
+                    "/usr/share/wireshark"
+                ],
+                "python.defaultInterpreterPath": "/usr/bin/python3"
+            }
+        }
+    },
+    "postCreateCommand": "pip install pytest scapy && ./install.sh",
+    "remoteUser": "vscode",
+    "mounts": [
+        "source=${localWorkspaceFolder}/tests/fixtures/pcaps,target=/workspace/pcaps,type=bind"
+    ],
+    "containerEnv": {
+        "WIRESHARK_PLUGIN_DIR": "/home/vscode/.local/lib/wireshark/plugins"
+    }
+}
